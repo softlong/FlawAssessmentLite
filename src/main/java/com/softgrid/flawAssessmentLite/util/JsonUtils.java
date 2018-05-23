@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.util;
+package com.softgrid.flawAssessmentLite.util;
 
 import java.io.FileReader;
 import java.io.IOException;

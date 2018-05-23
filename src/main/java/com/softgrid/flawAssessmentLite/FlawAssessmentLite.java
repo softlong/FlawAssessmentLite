@@ -1,6 +1,6 @@
-package com.softgrid.flawassessment;
+package com.softgrid.flawAssessmentLite;
 
-import com.softgrid.flawassessment.handler.DatabaseHandler;
+import com.softgrid.flawAssessmentLite.handler.DatabaseHandler;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.util;
+package com.softgrid.flawAssessmentLite.util;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;

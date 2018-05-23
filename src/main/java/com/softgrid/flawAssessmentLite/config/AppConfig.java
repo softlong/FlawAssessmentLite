@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.config;
+package com.softgrid.flawAssessmentLite.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;

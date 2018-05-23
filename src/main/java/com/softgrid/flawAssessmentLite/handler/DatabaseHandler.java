@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.handler;
+package com.softgrid.flawAssessmentLite.handler;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -10,8 +10,8 @@ import java.sql.Statement;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
-import com.softgrid.flawassessment.config.AppConfig;
-import com.softgrid.flawassessment.constant.CreateTableStatement;
+import com.softgrid.flawAssessmentLite.config.AppConfig;
+import com.softgrid.flawAssessmentLite.constant.CreateTableStatement;
 
 /**
  * @author Vincent Geng

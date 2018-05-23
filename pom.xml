@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sofgrid</groupId>
-    <artifactId>FlawAssessment</artifactId>
+    <artifactId>FlawAssessmentLite</artifactId>
     <version>1.0.0</version>
 
     <dependencies>
@@ -94,7 +94,7 @@
                     <!-- https://docs.oracle.com/javase/9/tools/javapackager.htm#JSWOR719 -->
                     <verbose>true</verbose>
                     <appName>${project.artifactId}</appName>
-                    <mainClass>com.softgrid.flawassessment.FlawAssessmentLite</mainClass>
+                    <mainClass>com.softgrid.flawAssessmentLite.FlawAssessmentLite</mainClass>
                     <vendor>Softgrid</vendor>
                     <bundler>EXE</bundler>
                     <bundleArguments>

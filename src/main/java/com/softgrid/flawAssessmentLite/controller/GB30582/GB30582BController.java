@@ -1,10 +1,10 @@
-package com.softgrid.flawassessment.controller.GB30582;
+package com.softgrid.flawAssessmentLite.controller.GB30582;
 
-import com.softgrid.flawassessment.formula.GB30582BFormula;
-import com.softgrid.flawassessment.handler.DatabaseHandler;
-import com.softgrid.flawassessment.template.pdf.PdfFactory;
-import com.softgrid.flawassessment.util.DateTimeUtil;
-import com.softgrid.flawassessment.util.NumberUtils;
+import com.softgrid.flawAssessmentLite.formula.GB30582BFormula;
+import com.softgrid.flawAssessmentLite.handler.DatabaseHandler;
+import com.softgrid.flawAssessmentLite.template.pdf.PdfFactory;
+import com.softgrid.flawAssessmentLite.util.DateTimeUtil;
+import com.softgrid.flawAssessmentLite.util.NumberUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

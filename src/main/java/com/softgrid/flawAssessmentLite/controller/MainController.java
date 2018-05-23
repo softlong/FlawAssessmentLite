@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.controller;
+package com.softgrid.flawAssessmentLite.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

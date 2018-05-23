@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.template.pdf;
+package com.softgrid.flawAssessmentLite.template.pdf;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class GB30582BPDF extends PdfTemplate {
 	private static final Logger logger = Logger.getLogger(GB30582BPDF.class);
 	
 	/* (non-Javadoc)
-	 * @see com.softgrid.flawassessment.template.pdf.PdfTemplate#setupPdfHeader()
+	 * @see com.softgrid.flawAssessmentLite.template.pdf.PdfTemplate#setupPdfHeader()
 	 */
 	@Override
 	protected void setupPdfHeader() {
@@ -32,7 +32,7 @@ public class GB30582BPDF extends PdfTemplate {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.softgrid.flawassessment.template.pdf.PdfTemplate#setupPdfBody()
+	 * @see com.softgrid.flawAssessmentLite.template.pdf.PdfTemplate#setupPdfBody()
 	 */
 	@Override
 	protected void setupPdfBody() {

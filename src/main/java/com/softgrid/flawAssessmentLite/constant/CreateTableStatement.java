@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.constant;
+package com.softgrid.flawAssessmentLite.constant;
 
 
 

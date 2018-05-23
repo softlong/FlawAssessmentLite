@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.template.pdf;
+package com.softgrid.flawAssessmentLite.template.pdf;
 
 import java.io.IOException;
 import java.util.Date;

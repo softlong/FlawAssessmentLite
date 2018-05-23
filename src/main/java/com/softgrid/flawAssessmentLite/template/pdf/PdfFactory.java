@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.template.pdf;
+package com.softgrid.flawAssessmentLite.template.pdf;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class PdfFactory {
 	
 	private final static Logger logger = Logger.getLogger(PdfFactory.class);
-	private static final String PACKAGE_NAME = "com.softgrid.flawassessment.template.pdf.";
+	private static final String PACKAGE_NAME = "com.softgrid.flawAssessmentLite.template.pdf.";
 	
 	/**
 	 * @param templateName

@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.formula;
+package com.softgrid.flawAssessmentLite.formula;
 
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;

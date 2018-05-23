@@ -1,4 +1,4 @@
-package com.softgrid.flawassessment.util;
+package com.softgrid.flawAssessmentLite.util;
 
 public class StringUtils {
 
