@@ -94,7 +94,7 @@
                     <!-- https://docs.oracle.com/javase/9/tools/javapackager.htm#JSWOR719 -->
                     <verbose>true</verbose>
                     <appName>${project.artifactId}</appName>
-                    <mainClass>com.softgrid.flawassessment.FlawAssessment</mainClass>
+                    <mainClass>com.softgrid.flawassessment.FlawAssessmentLite</mainClass>
                     <vendor>Softgrid</vendor>
                     <bundler>EXE</bundler>
                     <bundleArguments>

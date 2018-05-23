@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class FlawAssessment extends Application {
+public class FlawAssessmentLite extends Application {
 	
 	private DatabaseHandler databaseHandler;
 
