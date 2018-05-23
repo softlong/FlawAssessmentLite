@@ -1,0 +1,139 @@
+.root {
+    -fx-font-size: 15px;
+    -fx-font-family: "Microsoft YaHei UI";
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-max-width: 4px;
+    -fx-pref-width: 4px;
+}
+
+.scroll-pane:focused {
+    -fx-focus-color: #CCC;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-main .tab-label {
+    -fx-font-family: "Microsoft YaHei UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: #EEE;
+    -fx-font-weight: bold;
+}
+
+.label-bold {
+    -fx-font-weight: bold;
+}
+
+.tab-main:selected {
+    -fx-background-color: steelblue;
+}
+
+.tab-main:selected .tab-label {
+    -fx-text-fill: #FFF;
+}
+
+.tab-pane-main .tab-header-area .jfx-rippler {
+    -jfx-rippler-fill: STEELBLUE;
+}
+
+.button {
+    -fx-text-fill: #FFF;
+    -fx-background-color: STEELBLUE;
+    -fx-border-color: STEELBLUE;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-padding: 6 15;
+}
+
+.button-white {
+    -fx-text-fill: STEELBLUE;
+    -fx-background-color: #FFF;
+    -fx-border-color: STEELBLUE;
+}
+
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+.tree-cell {
+    -fx-padding: 6px 0 6px 0;
+    -fx-border-style: solid;
+    -fx-border-color: #666;
+    -fx-border-width: 0 0 0.2 0;
+}
+
+.scroll-pane .label {
+    -fx-padding: 0 0 0 40px;
+}
+
+.scroll-pane .label-more-padding {
+    -fx-padding: 0 0 0 60px;
+}
+
+.scroll-pane .label-no-padding {
+    -fx-padding: 0;
+}
+
+.scroll-pane .label-title {
+    -fx-padding: 4 10 4 4;
+    -fx-background-color: rgba(70, 130, 200, 0.6);
+    -fx-text-fill: #FFF;
+    -fx-background-radius: 0 20 20 0;
+    -fx-font-weight: bold;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: rgba(0, 0, 0, 0.2);
+}
+
+.jfx-radio-button {
+    -jfx-selected-color: STEELBLUE;
+    -jfx-unselected-color: STEELBLUE;
+    -jfx-rippler-fill: STEELBLUE;
+}
+
+.jfx-check-box {
+    -jfx-checked-color: STEELBLUE;
+    -jfx-unchecked-color: STEELBLUE;
+    -jfx-rippler-fill: STEELBLUE;
+}
+
+.axis-label {
+    -fx-font-size: 15px;
+    -fx-font-family: "Microsoft YaHei UI";
+    -fx-font-weight: bold;
+}
+
+.default-color0.chart-series-area-fill,
+.default-color1.chart-series-area-fill {
+    -fx-fill: LIGHTBLUE;
+}
+
+.default-color2.chart-series-area-fill,
+.default-color3.chart-series-area-fill {
+    -fx-fill: transparent;
+}
+
+.default-color0.chart-series-area-line,
+.default-color1.chart-series-area-line {
+    -fx-stroke: LIGHTBLUE;
+}
+
+.default-color2.chart-series-area-line,
+.default-color3.chart-series-area-line {
+    -fx-stroke: RED;
+    -fx-stroke-dash-array: 6 6 6 6;
+    -fx-stroke-width: 0.5;
+}
+
+.default-color0.chart-area-symbol,
+.default-color1.chart-area-symbol {
+    -fx-background-color: transparent;
+}
+
+.default-color2.chart-area-symbol,
+.default-color3.chart-area-symbol {
+    -fx-background-color: transparent;
+}
+
+.default-color4.chart-area-symbol {
+    -fx-background-color: RED;
+}

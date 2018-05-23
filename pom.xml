@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sofgrid</groupId>
+    <artifactId>FlawAssessment</artifactId>
+    <version>1.0.0</version>
+
+    <dependencies>
+        <!-- JavaFX Material Design Library -->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>8.0.2</version>
+        </dependency>
+
+        <!-- Embedded Database -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.14.1.0</version>
+        </dependency>
+
+        <!-- FontAwesome in JavaFX -->
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx</artifactId>
+            <version>8.9</version>
+        </dependency>
+
+        <!-- JavaFX CSS reloading in running application -->
+        <dependency>
+            <groupId>org.fxmisc.cssfx</groupId>
+            <artifactId>cssfx</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- exp4j -->
+        <dependency>
+            <groupId>net.objecthunter</groupId>
+            <artifactId>exp4j</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+
+        <!-- log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- Apache Commons Lang -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+        
+        <!-- JSON file reader -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
+		<!-- add all iText 7 Community modules -->
+		<!-- https://developers.itextpdf.com/itext7/download-and-install-information/Java -->
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itext7-core</artifactId>
+		    <version>7.1.2</version>
+		    <type>pom</type>
+		</dependency>
+		
+		<!-- iText 7 log library -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <!-- packaging Java and JavaFX applications -->
+                    <!-- https://docs.oracle.com/javase/9/tools/javapackager.htm#JSWOR719 -->
+                    <verbose>true</verbose>
+                    <appName>${project.artifactId}</appName>
+                    <mainClass>com.softgrid.flawassessment.FlawAssessment</mainClass>
+                    <vendor>Softgrid</vendor>
+                    <bundler>EXE</bundler>
+                    <bundleArguments>
+                        <installdirChooser>true</installdirChooser>
+                        <systemWide>true</systemWide>
+                        <icon>${project.basedir}/src/main/resources/images/icon.ico</icon>
+                    </bundleArguments>
+                    <nativeReleaseVersion>${version}</nativeReleaseVersion>
+                    <needShortcut>true</needShortcut>
+                    <needMenu>true</needMenu>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

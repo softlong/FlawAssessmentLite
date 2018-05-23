@@ -1,0 +1,80 @@
+Α α [alpha]
+Β β [beta]
+Γ γ [gamma]
+Δ δ [delta]
+Ε ε [epsilon]
+Ζ ζ [zeta]
+Η η [eta]
+Θ θ [sita]
+Ι ι [iota]
+Κ κ [kappa]
+Λ λ [lambda]
+Μ μ [mu]
+Ν ν [nu]
+Ξ ξ [xi]
+Ο ο [omicron]
+Π π [pi]
+Ρ ρ [rho]
+Σ σ [sigma]
+Τ τ [tau]
+Y υ [upsilon]
+Φ φ [phi]
+Χ χ [chi]
+Ψ ψ [psi]
+Ω ω [omega]
+
+---------------------
+
+chr 	\uXXXX  	Numeric  	HTML entity 	escape(chr) 	encodeURI(chr)
+Α		\u0391		&#913;		&Alpha;			%u0391			%CE%91
+Β		\u0392		&#914;		&Beta;			%u0392			%CE%92
+Γ		\u0393		&#915;		&Gamma;			%u0393			%CE%93
+Δ		\u0394		&#916;		&Delta;			%u0394			%CE%94
+Ε		\u0395		&#917;		&Epsilon;		%u0395			%CE%95
+Ζ		\u0396		&#918;		&Zeta;			%u0396			%CE%96
+Η		\u0397		&#919;		&Eta;			%u0397			%CE%97
+Θ		\u0398		&#920;		&Theta;			%u0398			%CE%98
+Ι		\u0399		&#921;		&Iota;			%u0399			%CE%99
+Κ		\u039A		&#922;		&Kappa;			%u039A			%CE%9A
+Λ		\u039B		&#923;		&Lambda;		%u039B			%CE%9B
+Μ		\u039C		&#924;		&Mu;			%u039C			%CE%9C
+Ν		\u039D		&#925;		&Nu;			%u039D			%CE%9D
+Ξ		\u039E		&#926;		&Xi;			%u039E			%CE%9E
+Ο		\u039F		&#927;		&Omicron;		%u039F			%CE%9F
+Π		\u03A0		&#928;		&Pi;			%u03A0			%CE%A0
+Ρ		\u03A1		&#929;		&Rho;			%u03A1			%CE%A1
+Σ		\u03A3		&#931;		&Sigma;			%u03A3			%CE%A3
+Τ		\u03A4		&#932;		&Tau;			%u03A4			%CE%A4
+Υ		\u03A5		&#933;		&Upsilon;		%u03A5			%CE%A5
+ϒ		\u03D2		&#978;		&upsih;			%u03D2			%CF%92
+Φ		\u03A6		&#934;		&Phi;			%u03A6			%CE%A6
+Χ		\u03A7		&#935;		&Chi;			%u03A7			%CE%A7
+Ψ		\u03A8		&#936;		&Psi;			%u03A8			%CE%A8
+Ω		\u03A9		&#937;		&Omega;			%u03A9			%CE%A9
+α		\u03B1		&#945;		&alpha;			%u03B1			%CE%B1
+β		\u03B2		&#946;		&beta;			%u03B2			%CE%B2
+γ		\u03B3		&#947;		&gamma;			%u03B3			%CE%B3
+δ		\u03B4		&#948;		&delta;			%u03B4			%CE%B4
+ε		\u03B5		&#949;		&epsilon;		%u03B5			%CE%B5
+ζ		\u03B6		&#950;		&zeta;			%u03B6			%CE%B6
+η		\u03B7		&#951;		&eta;			%u03B7			%CE%B7
+θ		\u03B8		&#952;		&theta;			%u03B8			%CE%B8
+ϑ		\u03D1		&#977;		&thetasym;		%u03D1			%CF%91
+ι		\u03B9		&#953;		&iota;			%u03B9			%CE%B9
+κ		\u03BA		&#954;		&kappa;			%u03BA			%CE%BA
+λ		\u03BB		&#955;		&lambda;		%u03BB			%CE%BB
+μ		\u03BC		&#956;		&mu;			%u03BC			%CE%BC
+ν		\u03BD		&#957;		&nu;			%u03BD			%CE%BD
+ξ		\u03BE		&#958;		&xi;			%u03BE			%CE%BE
+ο		\u03BF		&#959;		&omicron;		%u03BF			%CE%BF
+π		\u03C0		&#960;		&pi;			%u03C0			%CF%80
+ϖ		\u03D6		&#982;		&piv;			%u03D6			%CF%96
+ρ		\u03C1		&#961;		&rho;			%u03C1			%CF%81
+ς		\u03C2		&#962;		&sigmaf;		%u03C2			%CF%82
+σ		\u03C3		&#963;		&sigma;			%u03C3			%CF%83
+τ		\u03C4		&#964;		&tau;			%u03C4			%CF%84
+υ		\u03C5		&#965;		&upsilon;		%u03C5			%CF%85
+φ		\u03C6		&#966;		&phi;			%u03C6			%CF%86
+χ		\u03C7		&#967;		&chi;			%u03C7			%CF%87
+ψ		\u03C8		&#968;		&psi;			%u03C8			%CF%88
+ω		\u03C9		&#969;		&omega;			%u03C9			%CF%89
