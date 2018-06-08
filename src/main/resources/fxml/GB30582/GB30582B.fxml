@@ -105,8 +105,8 @@
                                         <Insets />
                                     </GridPane.margin>
                                 </Label>
-                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="221.0" text="管道横截面曲率半径R1(mm)" GridPane.rowIndex="2" />
-                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" text="管道轴向面曲率半径R2(mm)" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="224.0" text="管道横截面曲率半径(mm)" GridPane.rowIndex="2" />
+                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="224.0" text="管道轴向面曲率半径(mm)" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                             </children>
                             <padding>
                                 <Insets bottom="10.0" right="20.0" top="10.0" />
