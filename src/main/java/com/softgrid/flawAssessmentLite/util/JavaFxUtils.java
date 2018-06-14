@@ -1,11 +1,13 @@
 package com.softgrid.flawAssessmentLite.util;
 
+import com.jfoenix.controls.JFXRadioButton;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,5 +83,31 @@ public class JavaFxUtils {
         // remove nodes from row
         grid.getChildren().removeAll(deleteNodes);
     }
+    /***
+     * This method gets all the data from UI inputs and puts into a ArrayList<String>
+     * @param nodes
+     * @return
+     */
+    public static ArrayList<String> getNodeText(Node... nodes) {
+        ArrayList<String> nodeList = new ArrayList<>();
+        for (Node node : nodes) {
+            try {
+                if (node instanceof ComboBox) {
+                    StringUtils.add(nodeList, ((ComboBox) node).getValue().toString());
+                } else if (node instanceof TextField) {
+                    StringUtils.add(nodeList, ((TextField) node).getText());
+                } else if (node instanceof JFXRadioButton) {
+                    if (((JFXRadioButton) node).isSelected()) {
+                        StringUtils.add(nodeList, ((JFXRadioButton) node).getText());
+                    }
+                }
+            } catch (NullPointerException e) {
+                nodeList.add("NA");
+            }
+        }
+
+        return nodeList;
+    }
+
 
 }

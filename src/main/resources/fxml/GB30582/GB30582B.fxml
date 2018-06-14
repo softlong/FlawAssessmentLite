@@ -30,7 +30,7 @@
                 </HBox>
                 <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
                     <content>
-                        <GridPane hgap="20.0" prefHeight="563.0" prefWidth="859.0" vgap="20.0">
+                        <GridPane fx:id="gridPane" hgap="20.0" prefHeight="563.0" prefWidth="859.0" vgap="20.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" maxWidth="416.0" minWidth="204.0" prefWidth="248.33331298828125" />
                                 <ColumnConstraints hgrow="ALWAYS" maxWidth="235.0" minWidth="5.0" prefWidth="161.66668701171875" />
@@ -117,9 +117,8 @@
                 <HBox prefHeight="40.0" spacing="60.0">
                     <children>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton minWidth="-Infinity" mnemonicParsing="false" styleClass="button-white" text="重置数据" />
+                        <JFXButton minWidth="-Infinity" mnemonicParsing="false" onAction="#resetData" styleClass="button-white" text="重置数据" />
                         <JFXButton layoutX="607.0" layoutY="10.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#calculate" text="立即评定" />
-                  <JFXButton minWidth="-Infinity" mnemonicParsing="false" onAction="#exportPDF" text="导出PDF" />
                         <Region layoutX="50.0" layoutY="15.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                     </children>
                     <padding>
@@ -150,19 +149,28 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="lb_result" minWidth="-Infinity" text="结果" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label minWidth="-Infinity" text="评订结果：" GridPane.rowIndex="2" />
+                        <Label minWidth="-Infinity" text="评订时间：" GridPane.rowIndex="2" />
                         <Label minWidth="-Infinity" text="评订标准：" />
                         <Label minWidth="-Infinity" text="评订类型：" GridPane.rowIndex="1" />
                         <Label minWidth="-Infinity" text="GB30582" GridPane.columnIndex="1" />
                         <Label minWidth="-Infinity" text="含凹陷管道的剩余强度评价" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label minWidth="-Infinity" text="评订时间：" GridPane.rowIndex="3" />
-                        <Label fx:id="lb_datetime" minWidth="-Infinity" text="时间" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label minWidth="-Infinity" text="评订结果：" GridPane.rowIndex="3" />
+                        <Label fx:id="lb_datetime" minWidth="-Infinity" text="时间" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lb_result" minWidth="-Infinity" text="结果" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                     </children>
                     <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                     </VBox.margin>
                 </GridPane>
+            <HBox fx:id="buttonBox" spacing="40.0">
+               <children>
+                  <JFXButton minWidth="-Infinity" onAction="#saveResult" text="保存评定" />
+                  <JFXButton minWidth="-Infinity" onAction="#exportPDF" text="导出为PDF" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
             </children>
         </VBox>
     </items>

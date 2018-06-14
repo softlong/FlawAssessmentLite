@@ -3,16 +3,20 @@ package com.softgrid.flawAssessmentLite.controller.GB30582;
 import com.softgrid.flawAssessmentLite.constant.SteelGrade;
 import com.softgrid.flawAssessmentLite.formula.GB30582CFormula;
 import com.softgrid.flawAssessmentLite.handler.DatabaseHandler;
-import com.softgrid.flawAssessmentLite.template.pdf.PdfFactory;
+import com.softgrid.flawAssessmentLite.pdf.PdfFactory;
 import com.softgrid.flawAssessmentLite.util.DateTimeUtil;
+import com.softgrid.flawAssessmentLite.util.JavaFxUtils;
 import com.softgrid.flawAssessmentLite.util.NumberUtils;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -20,6 +24,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -27,6 +32,7 @@ public class GB30582CController implements Initializable {
 
     private static Logger logger = Logger.getRootLogger();
     private static final String GB30582C = "GB30582C";
+    private ArrayList<String> resultDataList = new ArrayList<>();
 
     @FXML
     private TextField tube_t;
@@ -54,6 +60,10 @@ public class GB30582CController implements Initializable {
     private Label lb_result;
     @FXML
     private Label lb_datetime;
+    @FXML
+    private HBox buttonBox;
+    @FXML
+    private GridPane gridPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,6 +73,7 @@ public class GB30582CController implements Initializable {
             sigma_R.setText(Integer.toString(newValue.getSigma_b()));
         });
         resultPane.setVisible(false);
+        buttonBox.setVisible(false);
     }
 
     public void calculate() {
@@ -94,21 +105,29 @@ public class GB30582CController implements Initializable {
     /**
      * “导出PDF” 按钮方法入口
      */
+    private void setResultDataList() {
+        this.resultDataList = JavaFxUtils.getNodeText(
+                tube_t, radius_D, comboBox, sigma_Y, sigma_R, power_C,Modulus_E,power_P,deep_H0,deep_d
+        );
+    }
     public void exportPDF() {
         Stage primaryStage = new Stage();
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory
-                = directoryChooser.showDialog(primaryStage);
+        File selectedDirectory = directoryChooser.showDialog(primaryStage);
         if (selectedDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("提示");
             alert.setHeaderText("操作错误");
-            alert.setContentText("请选择一个目录！");
+            alert.setContentText("请选择一个目录");
             alert.show();
         } else {
-            logger.info("Directory to save PDF: "+selectedDirectory.getAbsolutePath());
-            PdfFactory.exportPDF(GB30582C, selectedDirectory.getAbsolutePath());
+            logger.info("Directory to save PDF: " + selectedDirectory.getAbsolutePath());
+            PdfFactory.exportPDF(GB30582C, selectedDirectory.getAbsolutePath(), this.resultDataList);
         }
+    }
+
+    public void saveResult(){
+
     }
 
     private void ShowResult(String result){
@@ -120,8 +139,10 @@ public class GB30582CController implements Initializable {
             lb_result.setStyle("-fx-text-fill: GREEN; -fx-font-weight: bold");
         }
         lb_datetime.setText(createdDate);
+        buttonBox.setVisible(true);
         resultPane.setVisible(true);
         saveHistory(result,createdDate);
+        setResultDataList();
     }
 
     private void saveHistory(String result,String createdDate){
@@ -151,5 +172,15 @@ public class GB30582CController implements Initializable {
                 "'" + createdDate + "'," +
                 "'" + result + "')";
         DatabaseHandler.execAction(excute);
+    }
+    public void resetData(){
+        ObservableList<Node> children = gridPane.getChildren();
+        for (Node node: children
+                ) {
+            if ( node instanceof TextField){
+                ((TextField)node).setText(null);
+            }
+        }
+        resultPane.setVisible(false);
     }
 }
