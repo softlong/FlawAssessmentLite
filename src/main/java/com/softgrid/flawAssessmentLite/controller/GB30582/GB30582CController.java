@@ -105,10 +105,12 @@ public class GB30582CController implements Initializable {
     /**
      * “导出PDF” 按钮方法入口
      */
-    private void setResultDataList() {
-        this.resultDataList = JavaFxUtils.getNodeText(
+    private void setResultDataList(String createdDate,String result) {
+        this.resultDataList.add(createdDate);
+        this.resultDataList.addAll(JavaFxUtils.getNodeText(
                 tube_t, radius_D, comboBox, sigma_Y, sigma_R, power_C,Modulus_E,power_P,deep_H0,deep_d
-        );
+        ));
+        this.resultDataList.add(result);
     }
     public void exportPDF() {
         Stage primaryStage = new Stage();
@@ -142,7 +144,7 @@ public class GB30582CController implements Initializable {
         buttonBox.setVisible(true);
         resultPane.setVisible(true);
         saveHistory(result,createdDate);
-        setResultDataList();
+        setResultDataList(createdDate,result);
     }
 
     private void saveHistory(String result,String createdDate){

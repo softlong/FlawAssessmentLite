@@ -93,10 +93,12 @@ public class GB30582BController implements Initializable {
         }
 
     }
-    private void setResultDataList() {
-        this.resultDataList = JavaFxUtils.getNodeText(
+    private void setResultDataList(String createdDate,String result) {
+        this.resultDataList.add(createdDate);
+        this.resultDataList.addAll(JavaFxUtils.getNodeText(
                 tube_t, radius_R0, radius_R1, radius_R2, length_L, deep_d
-        );
+        ));
+        this.resultDataList.add(result);
     }
     public void exportPDF() {
         Stage primaryStage = new Stage();
@@ -130,7 +132,7 @@ public class GB30582BController implements Initializable {
             buttonBox.setVisible(true);
             resultPane.setVisible(true);
             saveHistory(result,createdDate);
-            setResultDataList();
+            setResultDataList(createdDate,result);
         }
 
         private void saveHistory(String result,String createdDate){
