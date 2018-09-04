@@ -11,6 +11,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
+import javafx.scene.control.Alert;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
@@ -31,20 +32,24 @@ public abstract class PdfTemplate {
     protected Document document;
 
     /**
-     * @param templateName
+     * @param
      * @param path
      */
-    protected void initPdfDocument(String templateName, String path) {
+    protected void initPdfDocument(String path) {
         try {
-            Date currentDate = new Date();
-            Long unixTimestamp = currentDate.getTime() / 1000;
-            String filePath = path + File.separator + templateName + "_" + unixTimestamp.toString() + ".pdf";
-            logger.info("PDF file path: " + filePath);
-            this.pdf = new PdfDocument(new PdfWriter(filePath));
+            logger.info("PDF file path: " + path);
+            this.pdf = new PdfDocument(new PdfWriter(path));
             PageSize ps = PageSize.A4;
             this.document = new Document(pdf, ps);
             document.setTopMargin(22);
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("提示");
+            alert.setHeaderText("操作错误");
+            alert.setContentText("无法访问该文件，因为该文件正被另一个进程使用");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            alert.show();
+
             logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
@@ -63,8 +68,8 @@ public abstract class PdfTemplate {
         this.document.close();
     }
 
-    public void generatePDF(String templateName, String path, ArrayList<String> resultDataList) {
-        initPdfDocument(templateName, path);
+    public void generatePDF(String path, ArrayList<String> resultDataList) {
+        initPdfDocument(path);
         setupPdfHeader();
         setupPdfBody(resultDataList);
         setupPdfFooter();
@@ -95,7 +100,7 @@ public abstract class PdfTemplate {
                 e.printStackTrace();
             }
 
-            canvas.moveText(pageSize.getWidth() / 3, pageSize.getHeight() - doc.getTopMargin() - 10)
+            canvas.moveText(pageSize.getWidth() / 3, pageSize.getHeight() - 20)
                     .showText(header)
                     .endText()
                     .release();

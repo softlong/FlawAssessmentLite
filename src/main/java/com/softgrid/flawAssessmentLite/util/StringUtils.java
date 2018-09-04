@@ -10,7 +10,7 @@ public class StringUtils {
 
     public static void add(ArrayList<String> al, String str) {
         if (isEmpty(str)) {
-            al.add("NA");
+            al.add("N/A");
         } else {
             al.add(str);
         }

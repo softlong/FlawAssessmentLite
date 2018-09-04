@@ -19,87 +19,89 @@ import com.softgrid.flawAssessmentLite.constant.CreateTableStatement;
  * Created on 7 May 2018
  */
 public class DatabaseHandler {
-	
-	private static Logger logger = Logger.getLogger(DatabaseHandler.class);
-	private static DatabaseHandler handler = null;
-    
+
+    private static Logger logger = Logger.getLogger(DatabaseHandler.class);
+    private static DatabaseHandler handler = null;
+
     private static Connection conn = null;
     private static Statement stmt = null;
-    
-    private DatabaseHandler(){
+
+    private DatabaseHandler() {
         createConnection();
+
         createTable(CreateTableStatement.GB30582B);
         createTable(CreateTableStatement.GB30582C);
+
     }
-    
-    public static DatabaseHandler getInstance(){
-        if(handler == null){
+
+    public static DatabaseHandler getInstance() {
+        if (handler == null) {
             handler = new DatabaseHandler();
         }
         return handler;
     }
-    
-    void createConnection(){
+
+    void createConnection() {
         try {
-            Class.forName(AppConfig.getDBDriver()).newInstance();
-            conn = DriverManager.getConnection(AppConfig.getConnectionURL());
+            Class.forName(AppConfig.getInstance().getDBDriver()).newInstance();
+            conn = DriverManager.getConnection(AppConfig.getInstance().getConnectionURL());
             logger.info("Database connection created.");
         } catch (Exception e) {
-        	logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
-    
-    void createTable(CreateTableStatement createTableStatement){
+
+    void createTable(CreateTableStatement createTableStatement) {
         try {
             stmt = conn.createStatement();
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet table = dbm.getTables(null, null, createTableStatement.getTableName().toUpperCase(), null);
-            
-            if(table.next()){
-            	logger.info("Table " + createTableStatement.getTableName() + " already exist. Good to Go.");
-            }else{
+
+            if (table.next()) {
+                logger.info("Table " + createTableStatement.getTableName() + " already exist. Good to go.");
+            } else {
                 //create table
                 stmt.execute(createTableStatement.getStatement());
             }
-                
+
         } catch (Exception e) {
-        	logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
-    
-    public static ResultSet fetchDataByExecQuery(String query){
+
+    public static ResultSet execQuery(String query) {
         ResultSet result;
         try {
             stmt = conn.createStatement();
             result = stmt.executeQuery(query);
         } catch (SQLException e) {
-        	logger.error("Fetch data Error.\nException at Execute query: ");
-        	logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error("Fetch data Error.\nException when executing query: ");
+            logger.error(ExceptionUtils.getStackTrace(e));
             return null;
-        }finally{
+        } finally {
         }
         return result;
     }
-    
-    public static boolean execAction(String query){
+
+    public static boolean execAction(String query) {
         try {
             stmt = conn.createStatement();
             stmt.execute(query);
             return true;
         } catch (SQLException e) {
-        	logger.error(ExceptionUtils.getStackTrace(e));
-        	return false;
-        }finally{
+            logger.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        } finally {
         }
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         try {
             conn.close();
             logger.info("Database connection closed.");
         } catch (Exception e) {
-        	logger.error("Unable to Close DB Connection.");
-        	logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error("Unable to Close DB Connection.");
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
     

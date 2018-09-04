@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -50,9 +51,16 @@ public class GB30582BController implements Initializable {
     /*凹陷深度d*/
     @FXML
     private TextField deep_d;
+    @FXML
+    private TextField tfpipename;
+
+    @FXML
+    private TextField tflocation;
 
     @FXML
     private Label lb_result;
+    @FXML
+    private Label lb_result1;
     @FXML
     private Label lb_datetime;
     @FXML
@@ -82,10 +90,12 @@ public class GB30582BController implements Initializable {
 
             if (epsilonMax > 0.06) {
 
-                ShowResult("管线需要修复");
+                String result1 = Double.toString(NumberUtils.formatTwoData(epsilonMax));
+                ShowResult("管线需要修复",result1);
 
             } else {
-                ShowResult("管线继续运行");
+                String result1 = Double.toString(NumberUtils.formatTwoData(epsilonMax));
+                ShowResult("管线继续运行",result1);
 
             }
         } catch (Exception e) {
@@ -93,20 +103,34 @@ public class GB30582BController implements Initializable {
         }
 
     }
-    private void setResultDataList() {
-        this.resultDataList = JavaFxUtils.getNodeText(
-                tube_t, radius_R0, radius_R1, radius_R2, length_L, deep_d
-        );
+
+    /**
+     * “导出PDF” 按钮方法入口
+     */
+    private void setResultDataList(String createdDate, String result,String result1) {
+        this.resultDataList.clear();
+        this.resultDataList.add(createdDate);
+        this.resultDataList.addAll(JavaFxUtils.getNodeText(
+                tfpipename, tflocation, tube_t, radius_R0, radius_R1, radius_R2, length_L, deep_d
+        ));
+        this.resultDataList.add(result1);
+        this.resultDataList.add(result);
     }
+
     public void exportPDF() {
         Stage primaryStage = new Stage();
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(primaryStage);
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF 文件 (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+        String defaultFileName = "油气管道凹陷安全评价系统评价报告";
+        fileChooser.setInitialFileName(defaultFileName + ".pdf");
+        File selectedDirectory = fileChooser.showSaveDialog(primaryStage);
         if (selectedDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("提示");
             alert.setHeaderText("操作错误");
             alert.setContentText("请选择一个目录");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
             alert.show();
         } else {
             logger.info("Directory to save PDF: " + selectedDirectory.getAbsolutePath());
@@ -114,51 +138,67 @@ public class GB30582BController implements Initializable {
         }
     }
 
-    public void saveResult(){
-
+    private void ShowResult(String result,String result1) {
+        String createdDate = DateTimeUtil.getDateFormat().format(new Date());
+        lb_result.setText(result);
+        if ("管线需要修复".equalsIgnoreCase(result)) {
+            lb_result.setStyle("-fx-text-fill: RED; -fx-font-weight: bold");
+        } else {
+            lb_result.setStyle("-fx-text-fill: GREEN; -fx-font-weight: bold");
+        }
+        buttonBox.setVisible(true);
+        lb_datetime.setText(createdDate);
+        resultPane.setVisible(true);
+        lb_result1.setText(result1);
+        setResultDataList(createdDate, result, result1);
     }
 
-        private void ShowResult(String result){
-            String createdDate = DateTimeUtil.getDateFormat().format(new Date());
-            lb_result.setText(result);
-            if("管线需要修复".equalsIgnoreCase(result)){
-                lb_result.setStyle("-fx-text-fill: RED; -fx-font-weight: bold");
-            }else {
-                lb_result.setStyle("-fx-text-fill: GREEN; -fx-font-weight: bold");
-            }
-            lb_datetime.setText(createdDate);
-            buttonBox.setVisible(true);
-            resultPane.setVisible(true);
-            saveHistory(result,createdDate);
-            setResultDataList();
-        }
-
-        private void saveHistory(String result,String createdDate){
+    public void saveResult() {
+        try {
             String excute = "INSERT INTO GB30582B("
+                    + "createdDate, "
+                    + "tfpipename, "
+                    + "tflocation, "
                     + "tube_t, "
                     + "radius_R0, "
                     + "radius_R1, "
                     + "radius_R2, "
                     + "length_L, "
                     + "deep_d, "
-                    + "createdDate, "
-                    + "result) VALUES("+
-                    "'" + tube_t.getText() + "'," +
-                    "'" + radius_R0.getText() + "'," +
-                    "'" + radius_R1.getText() + "'," +
-                    "'" + radius_R2.getText() + "'," +
-                    "'" + length_L.getText() + "'," +
-                    "'" + deep_d.getText() + "'," +
-                    "'" + createdDate + "'," +
-                    "'" + result + "')";
-            DatabaseHandler.execAction(excute);
+                    + "result1, "
+                    + "result) VALUES(";
+            StringBuilder sb = new StringBuilder(excute);
+            int len = this.resultDataList.size();
+            for (int i = 0; i < len - 1; i++) {
+                sb.append("'" + this.resultDataList.get(i) + "',");
+            }
+            sb.append("'" + this.resultDataList.get(len - 1) + "')");
+
+            DatabaseHandler.execAction(sb.toString());
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("提示");
+            alert.setHeaderText("信息");
+            alert.setContentText("保存成功");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            alert.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("提示");
+            alert.setHeaderText("错误");
+            alert.setContentText("对不起，保存失败");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            alert.show();
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
-    public void resetData(){
+    }
+
+    public void resetData() {
         ObservableList<Node> children = gridPane.getChildren();
-        for (Node node: children
+        for (Node node : children
                 ) {
-            if ( node instanceof TextField){
-                ((TextField)node).setText(null);
+            if (node instanceof TextField) {
+                ((TextField) node).setText(null);
             }
         }
         resultPane.setVisible(false);

@@ -23,7 +23,7 @@ public class PdfFactory {
     public static void exportPDF(String templateName, String path, ArrayList<String> resultDataList) {
         try {
             PdfTemplate pdfTemplate = (PdfTemplate) Class.forName(convertTemplateNameToClassName(templateName)).newInstance();
-            pdfTemplate.generatePDF(templateName, path, resultDataList);
+            pdfTemplate.generatePDF(path, resultDataList);
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         }

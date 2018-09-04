@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -55,9 +56,18 @@ public class GB30582CController implements Initializable {
     @FXML
     private TextField sigma_R;
     @FXML
+    private TextField tfpipename;
+
+    @FXML
+    private TextField tflocation;
+    @FXML
     private GridPane resultPane;
     @FXML
     private Label lb_result;
+    @FXML
+    private Label lb_result1;
+    @FXML
+    private Label lb_result2;
     @FXML
     private Label lb_datetime;
     @FXML
@@ -87,16 +97,21 @@ public class GB30582CController implements Initializable {
             double d = NumberUtils.stringToDouble(deep_d.getText());
             double sigma = NumberUtils.stringToDouble(sigma_Y.getText());
 
-            double power = GB30582CFormula.GB30582FormulaC(t, D, sigma, Cv, E, P, H0, d);
+            double sita1 = GB30582CFormula.GB30582FormulaC(t, D, sigma, Cv, E, P, H0, d);
+            double sigma_h =GB30582CFormula.GB30582FormulaC(P,D,t);
 
+            if(sigma_h>sita1){
+                String result1 = Double.toString(NumberUtils.formatTwoData(sigma_h));
+                String result2 = Double.toString(NumberUtils.formatTwoData(sita1));
+                ShowResult("管道失效",result1,result2);
 
-            if (power == 0) {
-                ShowResult("管道失效");
-
-            } else if (power == 1) {
-                ShowResult("管道未失效");
+            }else {
+                String result1 = Double.toString(NumberUtils.formatTwoData(sigma_h));
+                String result2 = Double.toString(NumberUtils.formatTwoData(sita1));
+                ShowResult("管道未失效",result1,result2);
 
             }
+
         } catch (Exception e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         }
@@ -105,15 +120,25 @@ public class GB30582CController implements Initializable {
     /**
      * “导出PDF” 按钮方法入口
      */
-    private void setResultDataList() {
-        this.resultDataList = JavaFxUtils.getNodeText(
-                tube_t, radius_D, comboBox, sigma_Y, sigma_R, power_C,Modulus_E,power_P,deep_H0,deep_d
-        );
+    private void setResultDataList(String createdDate, String result,String result1,String result2) {
+        this.resultDataList.clear();
+        this.resultDataList.add(createdDate);
+        this.resultDataList.addAll(JavaFxUtils.getNodeText(
+                tfpipename, tflocation, tube_t, radius_D, comboBox, sigma_Y, sigma_R, power_C, Modulus_E, power_P, deep_H0, deep_d
+        ));
+        this.resultDataList.add(result1);
+        this.resultDataList.add(result2);
+        this.resultDataList.add(result);
     }
+
     public void exportPDF() {
         Stage primaryStage = new Stage();
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(primaryStage);
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF 文件 (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+        String defaultFileName = "油气管道凹陷安全评价系统评价报告";
+        fileChooser.setInitialFileName(defaultFileName + ".pdf");
+        File selectedDirectory = fileChooser.showSaveDialog(primaryStage);
         if (selectedDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("提示");
@@ -126,59 +151,75 @@ public class GB30582CController implements Initializable {
         }
     }
 
-    public void saveResult(){
 
-    }
-
-    private void ShowResult(String result){
+    private void ShowResult(String result,String result1,String result2) {
         String createdDate = DateTimeUtil.getDateFormat().format(new Date());
         lb_result.setText(result);
-        if("管道失效".equalsIgnoreCase(result)){
+        if ("管道失效".equalsIgnoreCase(result)) {
             lb_result.setStyle("-fx-text-fill: RED; -fx-font-weight: bold");
-        }else {
+        } else {
             lb_result.setStyle("-fx-text-fill: GREEN; -fx-font-weight: bold");
         }
-        lb_datetime.setText(createdDate);
         buttonBox.setVisible(true);
+        lb_datetime.setText(createdDate);
         resultPane.setVisible(true);
-        saveHistory(result,createdDate);
-        setResultDataList();
+        lb_result1.setText(result1);
+        lb_result2.setText(result2);
+        setResultDataList(createdDate, result,result1,result2);
     }
 
-    private void saveHistory(String result,String createdDate){
-        String excute = "INSERT INTO GB30582C("
-                + "tube_t, "
-                + "radius_D, "
-                + "power_C, "
-                + "Modulus_E, "
-                + "power_P, "
-                + "deep_H0, "
-                + "deep_d, "
-                + "sigma_Y, "
-                + "sigma_R, "
-                + "comboBox, "
-                + "createdDate, "
-                + "result) VALUES("+
-                "'" + tube_t.getText() + "'," +
-                "'" + radius_D.getText() + "'," +
-                "'" + power_C.getText() + "'," +
-                "'" + Modulus_E.getText() + "'," +
-                "'" + power_P.getText() + "'," +
-                "'" + deep_H0.getText() + "'," +
-                "'" + deep_d.getText() + "'," +
-                "'" + sigma_Y.getText() + "'," +
-                "'" + sigma_R.getText() + "'," +
-                "'" + comboBox.getValue() + "'," +
-                "'" + createdDate + "'," +
-                "'" + result + "')";
-        DatabaseHandler.execAction(excute);
+    public void saveResult() {
+        try {
+            String excute = "INSERT INTO GB30582C("
+                    + "createdDate, "
+                    + "tfpipename, "
+                    + "tflocation, "
+                    + "tube_t, "
+                    + "radius_D, "
+                    + "comboBox, "
+                    + "sigma_Y, "
+                    + "sigma_R, "
+                    + "power_C, "
+                    + "Modulus_E, "
+                    + "power_P, "
+                    + "deep_H0, "
+                    + "deep_d, "
+                    + "result1,"
+                    + "result2,"
+                    + "result) VALUES(";
+            StringBuilder sb = new StringBuilder(excute);
+            int len = this.resultDataList.size();
+            for (int i = 0; i < len - 1; i++) {
+                sb.append("'" + this.resultDataList.get(i) + "',");
+            }
+            sb.append("'" + this.resultDataList.get(len - 1) + "')");
+
+            DatabaseHandler.execAction(sb.toString());
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("提示");
+            alert.setHeaderText("信息");
+            alert.setContentText("保存成功");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            alert.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("提示");
+            alert.setHeaderText("错误");
+            alert.setContentText("对不起，保存失败");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            alert.show();
+            logger.error(ExceptionUtils.getStackTrace(e));
+        }
+
     }
-    public void resetData(){
+
+    public void resetData() {
         ObservableList<Node> children = gridPane.getChildren();
-        for (Node node: children
+        for (Node node : children
                 ) {
-            if ( node instanceof TextField){
-                ((TextField)node).setText(null);
+            if (node instanceof TextField) {
+                ((TextField) node).setText(null);
             }
         }
         resultPane.setVisible(false);

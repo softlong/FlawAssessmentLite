@@ -24,7 +24,7 @@ public class FlawAssessmentLite extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
         Scene scene = new Scene(root);
 
-        window.setTitle("管道凹陷安全评定系统");
+        window.setTitle("油气管道凹陷安全评定系统");
         window.setScene(scene);
         window.show();
     }

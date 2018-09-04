@@ -15,7 +15,7 @@ public class GB30582CFormula {
         double K2 = 0.57;
         double A = 53.55;
         double sigma_avg = 1.15 * sigma * (1 - d/t);
-        double R = (2*D-t)/2;
+        double R = D/2;
 
         double C = new ExpressionBuilder("2/3*Cv").variables("Cv").build().setVariable("Cv",Cv).evaluate();
 
@@ -39,18 +39,18 @@ public class GB30582CFormula {
                 .setVariable("d",d).evaluate();
 
         String str_b = "{Y1[1-1.8(H0/D)]+Y2[10.2(R/t)*(H0/D)]}^2";
-        double b = new ExpressionBuilder(str_b).variables("Y1","H0","D","Y2","R","t").build()
+        double f = new ExpressionBuilder(str_b).variables("Y1","H0","D","Y2","R","t").build()
                 .setVariable("Y1",Y1).setVariable("Y2",Y2)
                 .setVariable("H0",h).setVariable("D",D)
                 .setVariable("R",R).setVariable("t",t).evaluate();
-
+        double b = 1/f;
         Function logb = new Function("logb", 2) {
             @Override
             public double apply(double... args) {
                 return Math.log(args[0]) / Math.log(args[1]);
             }
         };
-        double log = new ExpressionBuilder("logb(e, 0.738C)")
+        double log = new ExpressionBuilder("logb(0.738C, e)")
                 .function(logb).variables("C")
                 .build().setVariable("C",C)
                 .evaluate();
@@ -66,12 +66,10 @@ public class GB30582CFormula {
 
         double sita1 = sita * sigma_avg;
 
+        return sita1;
+    }
+    public static double GB30582FormulaC(double P,double D,double t){
         double sigma_h = (P * D)/(2 * t);
-
-        if (sigma_h>sita1){
-            return 0;
-        }else {
-            return 1;
-        }
+        return sigma_h;
     }
 }

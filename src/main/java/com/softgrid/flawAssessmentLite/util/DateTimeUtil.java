@@ -1,6 +1,9 @@
 package com.softgrid.flawAssessmentLite.util;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,5 +31,12 @@ public class DateTimeUtil {
         calendar.add(Calendar.MINUTE, mins);
 
         return calendar.getTime();
+    }
+
+    public static Date LocalDateToDate(LocalDate localDate) {
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+
+        return date;
     }
 }
