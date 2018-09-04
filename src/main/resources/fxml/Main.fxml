@@ -21,7 +21,7 @@
     <children>
         <JFXTabPane styleClass="tab-pane-main" tabClosingPolicy="UNAVAILABLE" tabMinHeight="40.0" tabMinWidth="280.0" VBox.vgrow="ALWAYS">
             <tabs>
-                <Tab closable="false" styleClass="tab-main" text="油气管道凹陷安全评价系统">
+                <Tab closable="false" styleClass="tab-main" text="凹陷管道安全评价系统">
                     <content>
                         <SplitPane dividerPositions="0.22">
                             <items>

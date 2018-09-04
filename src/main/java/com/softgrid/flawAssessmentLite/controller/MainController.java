@@ -321,7 +321,7 @@ public class MainController implements Initializable {
                     FileChooser fileChooser = new FileChooser();
                     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF 文件 (*.pdf)", "*.pdf");
                     fileChooser.getExtensionFilters().add(extFilter);
-                    String defaultFileName = "油气管道凹陷安全评价系统评价报告";
+                    String defaultFileName = "凹陷管道安全评价系统评价报告";
                     fileChooser.setInitialFileName(defaultFileName + ".pdf");
                     File selectedDirectory = fileChooser.showSaveDialog(primaryStage);
 
